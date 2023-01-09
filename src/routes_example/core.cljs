@@ -7,8 +7,10 @@
    [routes-example.views :as views]
    [routes-example.config :as config]
    [routes-example.users-index.views]
-   [routes-example.user-view.views]))
-
+   [routes-example.user-view.views]
+   [ajax.core :as ajax]
+   [cljs-http.client :as http]
+   [cljs.core.async :refer [<!]]))
 
 (defn dev-setup []
   (when config/debug?
