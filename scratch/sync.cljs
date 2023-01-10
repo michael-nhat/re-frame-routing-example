@@ -29,6 +29,7 @@
 (a/take! simple-chan println)
 (a/take! simple-chan println)
 (a/take! simple-chan println)
+(a/take! simple-chan println)
 
 (def echo-chan (a/chan))
 (a/go (println (a/<! echo-chan)))
@@ -36,24 +37,42 @@
 (ai/<p! "dfs")
 (ai/p->c "dfs")
 
+(js/setTimeout
+ (fn
+   []
+   (a/put! simple-chan "kk"))
+ 5000)
+(do
+  (a/take! simple-chan println))
+(println (ai/<p! (a/take simple-chan)))
+
+(let [c (a/chan)]
+  (a/go (a/>! c "hello"))
+  (assert (= "hello" (a/<!! (a/go (a/<! c)))))
+  (a/alt)
+  (a/close! c))
+
 (defn timeout [ms]
   (let [c (a/chan)]
     (js/setTimeout (fn [] (a/close! c)) ms)
     c))
 
+(js/setTimeout (fn [] (print "wtf")) 3000)
 (def long-task-ch (a/chan))
 (a/go
-  (let [[val ch] (a/alts! [long-task-ch (timeout 5000)])
-        ]
-    (print 'wtfh)
+  (let [[val ch]
+        (a/alts! [long-task-ch (a/timeout 5000)])]
     (if (= ch long-task-ch)
       (println "Task completed!" val)
-      (println "Oh oh! Task timed out!"))
+      (println "Oh oh! Task timed out!" long-task-ch val))
     ))
 (a/go (println "wtf"))
 
 (a/go (print (a/alts! [long-task-ch (timeout 5000)])))
 
+(a/go (let [c (a/chan)]
+   (a/alts! [c (a/timeout 100)])
+   (println "Gave up after sfdj")))
 
 (def x (a/chan 10))
 
@@ -83,3 +102,9 @@
 ;; output: [10 20 30 40]
 
 
+
+(a/go (let [response (a/<! (http/get "https://api.github.com/users"
+                                 {:with-credentials? false
+                                  :query-params {"since" 135}}))]
+      (prn (:status response))
+      (prn (map :login (:body response)))))
