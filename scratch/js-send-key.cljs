@@ -1,0 +1,6 @@
+(def e3 (js/document.getElementById "app"))
+(def element (js/document.getElementById "app"))
+(def e1 (js/document.getElementById "g_nav_186"))
+(.dispatchEvent element (new js/KeyboardEvent "keydown" {:key "a"}))
+(set! (.. e3 -style -color) "red")
+(set! (.. e3 -style -color) "blue")

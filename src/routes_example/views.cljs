@@ -15,8 +15,8 @@
       (str "Hello from " @name ". This is the Home Page.")]
 
      [:div
-      [:a {:on-click #(re-frame/dispatch [::events/navigate [:about]])}
-       "go to About Page"]]]))
+      [:a  {:on-click #(re-frame/dispatch [::events/navigate [:about]]) :href "/about"}
+       "go to About Pagexx"]]]))
 
 (defmethod routes/panels :home-panel [] [home-panel])
 
@@ -25,9 +25,8 @@
 (defn about-panel []
   [:div
    [:h1 "This is the About Page."]
-
    [:div
-    [:a {:on-click #(re-frame/dispatch [::events/navigate [:home]])}
+    [:a {:href "/" :on-click #(re-frame/dispatch [::events/navigate [:home]])}
      "go to Home Page"]]])
 
 (defmethod routes/panels :about-panel [] [about-panel])
@@ -37,4 +36,9 @@
 (defn main-panel []
   (let [active-panel (re-frame/subscribe [::subs/active-panel])]
     [:div "this is on every page"
+     [:ul {:id "nav-bar"}
+      [:li {:id "nav-home" :class "nav-item"} "Home"]
+      [:li {:id "nav-book" :class "nav-item"} "Books"]
+      [:li {:id "nav-book" :class "nav-item"} "About"]
+      [:li {:id "nav-book" :class "nav-item"} "Chart"]]
      [:div (routes/panels @active-panel)]]))
