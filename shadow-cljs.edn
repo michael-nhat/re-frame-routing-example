@@ -1,6 +1,4 @@
-{:nrepl {:port 8777}
-
- :source-paths ["src" "test"]
+{:source-paths ["src" "test"]
 
  :dependencies
  [[reagent "1.1.0"]
@@ -15,9 +13,11 @@
   [cljs-http/cljs-http "0.1.46"]
   [funcool/promesa "10.0.594"]]
 
+ ;; port
  :dev-http
  {8080 "resources/public"
-  8290 "target/browser-test"}
+  8180 "target/browser-test"}
+ :nrepl {:port 8777}
 
  :builds
  {:app
@@ -27,7 +27,9 @@
    :modules
    {:app {:init-fn routes-example.core/init}}
    :devtools
-   {:preloads [day8.re-frame-10x.preload]}
+   {:preloads [day8.re-frame-10x.preload]
+    ;; :http-port 9631 , not found missing html
+    }
    :dev
    {:compiler-options
     {:closure-defines

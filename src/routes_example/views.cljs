@@ -37,8 +37,8 @@
   (let [active-panel (re-frame/subscribe [::subs/active-panel])]
     [:div "this is on every page"
      [:ul {:id "nav-bar"}
-      [:li {:id "nav-home" :class "nav-item"} "Home"]
-      [:li {:id "nav-book" :class "nav-item"} "Books"]
-      [:li {:id "nav-book" :class "nav-item"} "About"]
-      [:li {:id "nav-book" :class "nav-item"} "Chart"]]
+      [:li {:id "nav-home" :class "nav-item"} [:a "Home"]]
+      [:li {:id "nav-book" :class "nav-item"} [:a "Books"]]
+      [:li {:id "nav-book" :class "nav-item"} [:a "About"]]
+      [:li {:id "nav-book" :class "nav-item"} [:a "Chart"]]]
      [:div (routes/panels @active-panel)]]))
