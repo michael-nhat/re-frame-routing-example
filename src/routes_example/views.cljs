@@ -5,39 +5,35 @@
    [routes-example.routes :as routes]
    [routes-example.subs :as subs]))
 
-
-;; home
-
 (defn home-panel []
   (let [name (re-frame/subscribe [::subs/name])]
     [:div
-     [:h1
-      (str "Hello from " @name ". This is the Home Page.")]
+     [:h3
+      (str "Hello from " @name "! Welcome!")]
      [:div
-      [:a  {:on-click #(re-frame/dispatch [::events/navigate [:about]]) :href "/about"}
-       "go to About Pagexx"]]]))
+      [:a  {:on-click #(re-frame/dispatch
+                        [::events/navigate [:about]]) :href "/about"}
+       "Go to About Page"]]]))
 
 (defmethod routes/panels :home-panel [] [home-panel])
 
-;; about
-
 (defn about-panel []
   [:div
-   [:h1 "This is the About Page."]
+   [:h1 "Books news, books hot"]
    [:div
     [:a {:href "/" :on-click #(re-frame/dispatch [::events/navigate [:home]])}
-     "go to Home Page"]]])
+     "Go to Home Page"]]])
 
 (defmethod routes/panels :about-panel [] [about-panel])
 
-;; main
-
 (defn main-panel []
   (let [active-panel (re-frame/subscribe [::subs/active-panel])]
-    [:div "this is on every page"
-     [:ul {:id "nav-bar"}
-      [:li {:id "nav-home" :class "nav-item"} [:a "Home"]]
-      [:li {:id "nav-book" :class "nav-item"} [:a "Books"]]
-      [:li {:id "nav-book" :class "nav-item"} [:a "About"]]
-      [:li {:id "nav-book" :class "nav-item"} [:a "Chart"]]]
-     [:div (routes/panels @active-panel)]]))
+    [:div {:id "main-container"}
+     [:div {:id "wrap-nav-bar"}
+      [:ul {:id "nav-bar"}
+       [:li {:id "nav-home" :class "nav-item"} [:a {:href "/"} "Home"]]
+       [:li {:id "nav-book" :class "nav-item"} [:a {:href "/book"} "Book"]]
+       [:li {:id "nav-book" :class "nav-item"} [:a {:href "/about"} "About"]]
+       [:li {:id "nav-login" :class "nav-item"} [:a {:href "/login"} "Login"]]
+       [:li {:id "nav-register" :class "nav-item"} [:a {:href "/login"} "Register"]]]]
+     [:div {:id "page-container"} (routes/panels @active-panel)]]))

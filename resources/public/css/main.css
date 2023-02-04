@@ -1,3 +1,19 @@
+* {
+  margin: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+#main-container {
+  min-height: 100%;
+  /* background-color: black; */
+  height: 1800px;
+  width: 100%;
+  margin: 0 auto -20px;
+}
+
 ol,
 ul {
   list-style-type: none;
@@ -11,10 +27,40 @@ h1 {
 }
 
 #nav-bar {
-  margin: 11px;
-  font-family: Serif
+  /* margin: 11px; */
+  position: absolute;
+  font-family: Serif;
+  display: flex;
+  width: 100%;
+  border: 1px double rgb(82, 20, 20);
+  background-color: rgb(40,42,53);
 }
 
-li {
+#nav-bar li {
+  display: block;
+  width: 117px;
+  height: 40px;
   float: left;
+  /* margin-left: 4px; */
+}
+
+#nav-bar a {
+  color: white;
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  /* equal to #nav-bar li */
+  line-height: 40px;
+}
+
+#nav-bar a:hover {
+  /* color: rgb(237, 127, 127); */
+  background-color: rgb(4,170,109);
+  text-decoration: none;
+}
+
+#page-container {
+  position: relative;
+  top: 41px;
 }
