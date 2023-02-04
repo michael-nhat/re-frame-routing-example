@@ -13,7 +13,6 @@
     [:div
      [:h1
       (str "Hello from " @name ". This is the Home Page.")]
-
      [:div
       [:a  {:on-click #(re-frame/dispatch [::events/navigate [:about]]) :href "/about"}
        "go to About Pagexx"]]]))

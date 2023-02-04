@@ -1,8 +1,18 @@
+ol,
 ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
   display: inline;
+}
+
+h1 {
+  padding: 13px;
+}
+
+#nav-bar {
+  margin: 11px;
+  font-family: Serif
 }
 
 li {

@@ -47,7 +47,8 @@
 (println (ai/<p! (a/take simple-chan)))
 
 (let [c (a/chan)]
-  (a/go (a/>! c "hello"))
+  (a/go
+    (a/>! c "hello"))
   (assert (= "hello" (a/<!! (a/go (a/<! c)))))
   (a/alt)
   (a/close! c))
@@ -64,15 +65,14 @@
         (a/alts! [long-task-ch (a/timeout 5000)])]
     (if (= ch long-task-ch)
       (println "Task completed!" val)
-      (println "Oh oh! Task timed out!" long-task-ch val))
-    ))
+      (println "Oh oh! Task timed out!" long-task-ch val))))
 (a/go (println "wtf"))
 
 (a/go (print (a/alts! [long-task-ch (timeout 5000)])))
 
 (a/go (let [c (a/chan)]
-   (a/alts! [c (a/timeout 100)])
-   (println "Gave up after sfdj")))
+        (a/alts! [c (a/timeout 100)])
+        (println "Gave up after sfdj")))
 
 (def x (a/chan 10))
 
