@@ -8,12 +8,14 @@
 (defmulti panels identity)
 (defmethod panels :default [] [:div "No panel found for this route."])
 
+;; DEF ROUTE HERE
 (def routes
   (atom
    ["/" {""      :home
          "about" :about
          "users" {"" :users-index
-                  ["/" :id] :user-view}}]))
+                  ["/" :id] :user-view}
+         "login" :login}]))
 
 (defn parse
   [url]

@@ -12,7 +12,6 @@
  (fn [db _]
    (get-in db [:route :panel])))
 
-
 (re-frame/reg-sub
  ::route-params
  (fn [db _]

@@ -10,7 +10,8 @@
    [routes-example.user-view.views]
    [ajax.core :as ajax]
    [cljs-http.client :as http]
-   [cljs.core.async :refer [<!]]))
+   [cljs.core.async :refer [<!]]
+   [routes-example.main-view :refer [main-panel]]))
 
 (defn dev-setup []
   (when config/debug?
@@ -20,7 +21,7 @@
   (re-frame/clear-subscription-cache!)
   (let [root-el (.getElementById js/document "app")]
     (rdom/unmount-component-at-node root-el)
-    (rdom/render [views/main-panel] root-el)))
+    (rdom/render [main-panel] root-el)))
 
 (defn init []
   (routes/start!)
