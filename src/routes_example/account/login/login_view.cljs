@@ -60,6 +60,7 @@
                    name-atom
                    nil
                    true))
+
 (defn password-form [password-atom]
   (input-and-label "Password"
                    "password"
@@ -79,10 +80,13 @@
         [username-form name]
         [password-form password]]
        [:button "Login"]]
-
       [:a {:href "/forgot-password"
            ;; :on-click #(re-frame/dispatch [::events/navigate [:home]])
            }
        "Dis you miss something? Get support"]]]))
+
+;; if click -> login success -> set session data (local storage)
+;; if error -> is network, notifi network
+;; if error -> return error -> Login info might be wrong
 
 (defmethod routes/panels :login-panel [] [login-panel])

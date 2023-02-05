@@ -1,4 +1,4 @@
-(ns user
+(ns user2
   ;; already require
   ;; (:require-macros [cljs.core.async.macros :refer [go]])
   (:require
@@ -15,8 +15,11 @@
    [cljs-http.client :as http]
    ;; [cljs.core.async :refer [<!]]
    [goog.string :as str]
-   [promesa.core :as p]
-   [clojure.core.async :as a]))
+   [promesa.core :as pr]
+   [clojure.core.async :as a]
+   [lambdaisland.fetch :as fetch]
+   [kitchen-async.promise :as p]
+   [goog.object :as gobj]))
 
 (def d "https://dummyjson.com/")
 
@@ -77,8 +80,10 @@
 (swap! m1 assoc :a "Aaay")
 
 (ajax/GET
-  (str/format "%sproducts/1" d)
-  {:handler handler2
+  (api "test")
+  {:headers {"Access-Control-Allow-Headers" "Content-Type"
+             "Access-Control-Allow-Origin" "*"}
+   :handler handler2
    :error-handler error-handler})
 
 (ajax/ajax-request {:uri (str/format "%sproducts/add" d)
@@ -105,16 +110,16 @@
    ;; {"x-csrf-token" csrf-field}
    })
 
-(p/promise
+(pr/promise
  (fn [resolve reject]
-   (ajax/ajax-request {:uri (str/format "%sproducts/1" d)
+   (ajax/ajax-request {:uri (api "test")
                        :handler handler
                        :error-handler error-handler
                        :response-format (ajax/json-response-format {:keywords? true})
                        :format (ajax/json-request-format)})))
 
 (->
- (p/promise
+ (pr/promise
   (fn [res rej]
     ;; (ajax/ajax-request {:url (str/format "%sproducts/1" d)
     ;;                   :handler resolve
@@ -125,9 +130,71 @@
             {:headers {"Accept" "application/transit+json"}
              :handler res
              :error-handler rej})))
- (p/then handler2)
- (p/catch error-handler))
+ (pr/then handler2)
+ (pr/catch error-handler))
 
 (->
- p/promise
+ pn/promise
  (fn [res rej]))
+
+(fetch/get (str/format "%sproducts/1" d))
+
+(http/get (api "test")
+          {:headers {;; "Access-Control-Allow-Headers" "Content-Type"
+                     "Access-Control-Allow-Origin" "*"
+
+                     ;; "access-control-request-headers" "Content-Type"
+                     }})
+
+(def l "http://localhost:8081/")
+(defn api [url]
+  (str/format "%s%s" l url))
+
+(p/try
+  (p/let [resp (fetch/get
+                (str/format "%sproducts/1" d)
+                {:mode "no-cors"
+                 ;; :accept :json
+                 ;; :content-type :json
+                 })]
+    (prn resp))
+  (p/catch :default e
+     ;; log your exception here
+    (prn :error e)))
+;; on js must use res.text => .then(res.json
+;; p/let return response with p/catch
+(p/try
+  (p/let [resp (fetch/get
+                (api "test")
+                ;; {:mode "no-cors"
+                ;;  ;; :accept :json
+                ;;  ;; :content-type :json
+                ;;  }
+                )]
+    (prn (:body resp)))
+  (p/catch :default e
+     ;; log your exception here
+    (prn :error e)))
+
+(let
+ [response (.fetch js/window "http://localhost:8081/test")]
+  (-> response (.then #(js/alert %)) (.catch (js/alert "erro"))))
+
+(-> (js/fetch "http://localhost:8081/test")
+    (.then (fn [r]
+             (when-not (.-ok r)
+               (throw (js/Error. "Could not fetch /data")))
+             (.json r)))
+    (.then (fn [r]
+             (prn [:result r])))
+    (.catch (fn [e]
+              (prn [:error e]))))
+
+;; seem like js/fetch wrap with .json
+;; might be error
+(-> (fetch/get "http://localhost:8081/test")
+    (.then (fn [resp]
+             (-> resp
+                 :body
+                 ;; the actual response is a js object, not a clojure map
+                 (prn )))))
