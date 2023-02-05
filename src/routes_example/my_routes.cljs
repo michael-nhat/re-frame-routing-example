@@ -15,7 +15,8 @@
          "about" :about
          "users" {"" :users-index
                   ["/" :id] :user-view}
-         "login" :login}]))
+         "login" :login
+         "register" :register}]))
 
 (defn parse
   [url]
