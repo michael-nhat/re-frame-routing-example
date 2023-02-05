@@ -63,4 +63,5 @@ h1 {
 #page-container {
   position: relative;
   top: 41px;
+  margin: auto 20px auto 20px;
 }

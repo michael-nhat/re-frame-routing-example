@@ -1,7 +1,7 @@
 (ns routes-example.users-index.views
   (:require [re-frame.core :as re-frame]
             [routes-example.users-index.subs :as subs]
-            [routes-example.routes :as routes]
+            [routes-example.my-routes :as routes]
             [routes-example.events :as events]))
 
 (defn users-index []

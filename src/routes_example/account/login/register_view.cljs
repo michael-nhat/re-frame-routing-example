@@ -1,11 +1,11 @@
-(ns routes-example.other.about-view
+(ns routes-example.account.login.register-view
   (:require
    [re-frame.core :as re-frame]
    [routes-example.events :as events]
    [routes-example.subs :as subs]
    [routes-example.my-routes :as routes]))
 
-(defn about-panel []
+(defn register-panel []
   [:div
    [:h3 "About us: ..."]
    [:div
@@ -13,4 +13,4 @@
          }
      "Go to Home Page"]]])
 
-(defmethod routes/panels :about-panel [] [about-panel])
+(defmethod routes/panels :register-panel [] [register-panel])

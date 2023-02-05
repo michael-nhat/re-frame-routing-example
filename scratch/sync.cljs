@@ -6,7 +6,7 @@
    [clojure.pprint :as pp]
    [re-frame.core :as re-frame]
    [routes-example.events :as events]
-   [routes-example.routes :as routes]
+   [routes-example.my-routes :as routes]
    [routes-example.views :as views]
    [routes-example.config :as config]
    [routes-example.users-index.views]

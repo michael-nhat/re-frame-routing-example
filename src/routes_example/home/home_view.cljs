@@ -3,7 +3,7 @@
    [re-frame.core :as re-frame]
    [routes-example.events :as events]
    [routes-example.subs :as subs]
-   [routes-example.routes :as routes]))
+   [routes-example.my-routes :as routes]))
 
 (defn home-panel []
   (let [name (re-frame/subscribe [::subs/name])]

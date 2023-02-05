@@ -1,4 +1,4 @@
-(ns routes-example.routes
+(ns routes-example.my-routes
   (:require
    [bidi.bidi :as bidi]
    [pushy.core :as pushy]
