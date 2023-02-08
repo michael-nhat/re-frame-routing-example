@@ -15,7 +15,6 @@
   [re-graph/re-graph "0.2.0"]
   [lambdaisland/fetch "1.2.69"]
   [clj-commons/cljss "1.6.4"]
-  [ring-cors "0.1.13"]
   [kitchen-async "0.1.0-SNAPSHOT"]]
 
  ;; port
