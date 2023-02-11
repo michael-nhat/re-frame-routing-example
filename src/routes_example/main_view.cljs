@@ -6,7 +6,9 @@
    [routes-example.subs :as subs]
    [routes-example.home.home-view]
    [routes-example.other.about-view]
-   [routes-example.account.login.login-view] [routes-example.account.login.register-view]))
+   [routes-example.account.login.login-view]
+   [routes-example.account.login.register-view]
+   [routes-example.apis.main]))
 
 (defn main-panel []
   (let [active-panel (re-frame/subscribe [::subs/active-panel])]

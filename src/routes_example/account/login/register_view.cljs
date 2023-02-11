@@ -30,7 +30,7 @@
 
 (defn register-panel []
   (let [name (r/atom "")
-        val (r/atom "wtf")]
+        val (r/atom "")]
     (fn []
       [:div
        [:h3 "Input info"]
