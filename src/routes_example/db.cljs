@@ -2,4 +2,9 @@
 
 (def default-db
   {:name "Bland"
-   :users [{:id 1 :name "on the code again"} {:id 2 :name "Gareth Cliff"}]})
+   ;; login has username, fullname
+   :login {:logged true
+           :user nil}
+   :users [{:id 1 :name "on the code again"} {:id 2 :name "Gareth Cliff"}]
+   :load nil
+   :loading {}})
