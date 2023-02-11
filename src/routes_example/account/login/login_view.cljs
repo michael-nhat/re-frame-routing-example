@@ -21,7 +21,7 @@
        [:button {:on-click #(api/j-post
                              "login"
                              {:body {:username "nhat" :password "123456"}}
-                             (fn [user] (re-frame/dispatch [::events/login-success user]))
+                             (fn [user] (re-frame/dispatch [:events/login-success user]))
                              (fn [_] (re-frame/dispatch [::events/login-failed]))
                                         )} "Login"]]
       ;; if check pass ok dispatch , if wrong, dispatch wrong info
