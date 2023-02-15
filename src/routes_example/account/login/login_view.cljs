@@ -11,24 +11,25 @@
 (defn login-panel []
   (let [name (atom nil)
         password (atom nil)]
-    [:div
+    [:div {:class "login"}
      [:h2 "Login"]
      [:div
-      [:div {:class "signup-wrapper"}
+      [:div {:class "login-wrapper"}
        [:form
-        [username-form name]
-        [password-form password]]
+        [:div {:class "login-fields"} [username-form name]
+         [password-form password]]]
        [:button {:on-click #(api/j-post
                              "login"
                              {:body {:username "nhat" :password "123456"}}
                              (fn [user] (re-frame/dispatch [:events/login-success user]))
-                             (fn [_] (re-frame/dispatch [::events/login-failed]))
-                                        )} "Login"]]
+                             (fn [_] (re-frame/dispatch [::events/login-failed])))
+                 :class "btn zzbtn-login"} "Login"]]
       ;; if check pass ok dispatch , if wrong, dispatch wrong info
-      [:a {:href "/forgot-password"
+      [:a {:class "forgot-password"
+           :href "/forgot-password"
            ;; :on-click #(re-frame/dispatch [::events/navigate [:home]])
            }
-       "Dis you miss something? Get support"]]]))
+       "Did you miss something? Get support"]]]))
 
 ;; if click -> login success -> set session data (local storage)
 ;; if error -> is network, notifi network

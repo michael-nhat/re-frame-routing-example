@@ -33,7 +33,7 @@
         val (r/atom "")]
     (fn []
       [:div
-       [:h3 "Input info"]
+       [:h3 "Register: "]
        [:div
         [:form
          [:p [atom-input val]]]
