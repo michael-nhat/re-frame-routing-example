@@ -14,5 +14,5 @@
 	"devDependencies": {
 		"shadow-cljs": "2.14.6"
 	},
-  "proxy": "http://localhost:8081"
+	"proxy": "http://localhost:8081"
 }
