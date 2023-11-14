@@ -19,7 +19,7 @@
 
 (defn ^:dev/after-load mount-root []
   (re-frame/clear-subscription-cache!)
-  (let [root-el (.getElementById js/document "app")]
+  (let [root-el (.getElementById js/document "cljs-app")]
     (rdom/unmount-component-at-node root-el)
     (rdom/render [main-panel] root-el)))
 
