@@ -65,3 +65,19 @@ h1 {
   top: 41px;
   margin: auto 20px auto 20px;
 }
+
+.login-wrapper .login-fields {
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+
+.login .zzbtn-login {
+  margin-bottom: 15px;
+}
+
+.login .forgot-password {
+  margin-top: 15px;
+}

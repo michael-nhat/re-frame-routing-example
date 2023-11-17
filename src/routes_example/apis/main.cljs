@@ -16,14 +16,14 @@
 (def ep "http://localhost:8081/")
 (defn url [api-url] (gs/format "%s%s" ep api-url))
 
-;; api :message :data
-;; message when something need to talk to frontend programmer (mainly convention)
-;; message require when has error (might be not show to user)
+;; api :msg :data
+;; msg when something need to talk to frontend programmer (mainly convention)
+;; msg require when has error (might be not show to user)
 ;; no need to add to code
 ;; format code
 
 (defn default-client-err-handler [e]
-  (js/console.log "Client error: " (.-message e))
+  (print "Client error: " (.-message e))
   ;; (js/alert "Client error: " (gs/format "%s" e))
   )
 
@@ -42,7 +42,7 @@
     (if (>= (:status res) 300)
       (default-err-handler
        ;; body is #js
-       (.-message (:body res)))
+       (set-inspect (.-msg (get-in res [:body]))))
       (then (get-in res [:body :data])))))
 
 ;; get, json

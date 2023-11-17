@@ -16,5 +16,11 @@ fetch("http://localhost:8081/test", {
         })
     })
 
+login: post api
+then: put username, ... userinfo
+catch: console.log("login failed")
 
-co the import localhost js script, van chay bt, nhung nyxy khong the import script in the middle, can tim cach import som hon
+make it simple aspossible
+cancel if not work
+
+login success event

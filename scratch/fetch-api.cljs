@@ -40,7 +40,7 @@
    :validator
    (fn
      [val]
-     (println "wtf changed: %s" val)
+     (println "changed: %s" val)
      val)))
 
 (defn handler [response]
@@ -63,8 +63,6 @@
 
 (defn handler2 [response]
   ;; (.log js/console (str response))
-  (print 'heelo)
-  (print response)
   (swap! response-product assoc :data
          response)
   (pp/pprint response)
@@ -78,7 +76,7 @@
   (atom
    {:a "A" :b "B"}
    :validator
-   (fn [val] (println (gs/format "wtf changed: %s" val)) val)))
+   (fn [val] (println (gs/format "changed: %s" val)) val)))
 
 (swap! m1 assoc :a "Aaay")
 
@@ -137,22 +135,21 @@
  (pr/then handler2)
  (pr/catch error-handler))
 
-
 (->
  pn/promise
  (fn [res rej]))
 
 (fetch/get (gs/format "%sproducts/1" d))
 
-(def l "http://localhost:8081/")
-(defn api [url]
-  (gs/format "%s%s" l url))
-
 (http/get (api "test")
           {:headers {;; "Access-Control-Allow-Headers" "Content-Type"
                      "Access-Control-Allow-Origin" "*"
                      ;; "access-control-request-headers" "Content-Type"
                      }})
+
+(def l "http://localhost:8081/")
+(defn api [url]
+  (gs/format "%s%s" l url))
 
 (p/try
   (p/let [resp (fetch/get
@@ -161,13 +158,10 @@
                  ;; :accept :json
                  ;; :content-type :json
                  })]
-    (do
-     (print resp)
-     (print 'ok)))
+    (prn resp))
   (p/catch :default e
      ;; log your exception here
-    (prn :error e)
-    (print 'err)))
+    (prn :error e)))
 
 ;; on js must use res.text => .then(res.json
 ;; p/let return response with p/catch
@@ -224,7 +218,6 @@
 (js/Object.getOwnPropertyNames @a)
 (js/Object.getOwnPropertyNames (js/Object.assign {} (js->clj @a)))
 (js->clj (js/Object.assign {} (js->clj @a)))
-(utils)
 
 (js/console.log "err: " (str @a) ":endkk")
 (js/Object.entries @a)
@@ -233,7 +226,6 @@
 (js/JSON.stringify   @a)
 
 (def ep "http://localhost:8082/")
-
 
 (def insp (atom ""))
 
@@ -245,12 +237,13 @@
   ;; (js/console.log "client error: " (.message e))
   (js/alert (gs/format "Client error: %s" (.-message e))))
 
-(j-post "login" {:body {:name "nhat"}} (fn [data] (print data)))
+@insp
+(j-post "login" {:body {:username "nhat" :password "1234k56"}} (fn [data] (print data)))
 (js/Object.keys (gobj/clone @a))
 
 ;; no
 ;; good for debug, with many?? (is something still missing?)
 (js/console.log (gobj/getAllPropertyNames @a))
 
-;; write hook in send string repl that 
+;; write hook in send string repl that
 ;; clear output then dd at the end of buffer could fix that
