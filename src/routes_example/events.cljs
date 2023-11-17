@@ -3,7 +3,7 @@
    [re-frame.core :as re-frame]
    [routes-example.db :as db]
    [day8.re-frame.tracing :refer-macros [fn-traced]]
-   [day8.re-frame.http-fx]
+   ;; [day8.re-frame.http-fx]
    [ajax.core :as ajax]))
 
 (re-frame/reg-event-db
