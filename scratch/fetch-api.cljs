@@ -40,7 +40,7 @@
    :validator
    (fn
      [val]
-     (println "changed: %s" val)
+     (println "wtf changed: %s" val)
      val)))
 
 (defn handler [response]
@@ -63,6 +63,8 @@
 
 (defn handler2 [response]
   ;; (.log js/console (str response))
+  (print 'heelo)
+  (print response)
   (swap! response-product assoc :data
          response)
   (pp/pprint response)
@@ -76,7 +78,7 @@
   (atom
    {:a "A" :b "B"}
    :validator
-   (fn [val] (println (gs/format "changed: %s" val)) val)))
+   (fn [val] (println (gs/format "wtf changed: %s" val)) val)))
 
 (swap! m1 assoc :a "Aaay")
 
@@ -135,22 +137,22 @@
  (pr/then handler2)
  (pr/catch error-handler))
 
+
 (->
  pn/promise
  (fn [res rej]))
 
 (fetch/get (gs/format "%sproducts/1" d))
 
-(http/get (api "test")
-          {:headers {;; "Access-Control-Allow-Headers" "Content-Type"
-                     "Access-Control-Allow-Origin" "*"
-
-                     ;; "access-control-request-headers" "Content-Type"
-                     }})
-
 (def l "http://localhost:8081/")
 (defn api [url]
   (gs/format "%s%s" l url))
+
+(http/get (api "test")
+          {:headers {;; "Access-Control-Allow-Headers" "Content-Type"
+                     "Access-Control-Allow-Origin" "*"
+                     ;; "access-control-request-headers" "Content-Type"
+                     }})
 
 (p/try
   (p/let [resp (fetch/get
@@ -159,10 +161,13 @@
                  ;; :accept :json
                  ;; :content-type :json
                  })]
-    (prn resp))
+    (do
+     (print resp)
+     (print 'ok)))
   (p/catch :default e
      ;; log your exception here
-    (prn :error e)))
+    (prn :error e)
+    (print 'err)))
 
 ;; on js must use res.text => .then(res.json
 ;; p/let return response with p/catch

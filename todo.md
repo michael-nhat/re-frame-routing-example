@@ -16,3 +16,5 @@ fetch("http://localhost:8081/test", {
         })
     })
 
+
+co the import localhost js script, van chay bt, nhung nyxy khong the import script in the middle, can tim cach import som hon
