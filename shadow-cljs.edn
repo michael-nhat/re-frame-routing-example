@@ -16,9 +16,21 @@
   [re-graph/re-graph "0.2.1-SNAPSHOT"]
   [lambdaisland/fetch "1.5.83"]
   [clj-commons/cljss "1.6.4"]
-  [kitchen-async "0.1.0-SNAPSHOT"]]
+  [kitchen-async "0.1.0-SNAPSHOT"]
+  ;; seem good but seem miss cljs (seem limit wit cljs
+  ;; relate to electric clojure framework
+  [missionary "b.33"]
+  ;; classic but cljs is not update, from 2019
+  ;; [manifold "0.4.1"] ;; clj
+  [manifold-cljs "0.1.7-1"]
+  ;; work with promesa
+  [com.github.yapsterapp/promisespromises "3.0.361-alpha1"]
+  ;; object get better than .- notation
+  [binaryage/oops "0.7.2"]
+  ;;
+  ]
 
- ;; port
+;; port
  :dev-http
  {;; 8180 "target/browser-test"
   8080 {:root "resources/public"
